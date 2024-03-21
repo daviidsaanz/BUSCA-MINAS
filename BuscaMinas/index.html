@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buscaminas</title>
+  <link rel="stylesheet" href="./styles/styles.css">
+  <link rel = "icon" href = "https://cdn-icons-png.flaticon.com/512/595/595582.png" type = "image/x-icon">
+</head>
+
+<body>
+  <header class="header">
+    <div class="container">
+      <div class="btn-menu">
+        <label for="btn-menu">☰</label>
+      </div>
+    </div>
+  </header>
+  <div class="capa"></div>
+  <input type="checkbox" id="btn-menu">
+  <div class="container-menu">
+    <div class="cont-menu">
+      <nav>
+        <p>Filas</p>
+        <input id="cuantasFilas">
+        <p>Columnas</p>
+        <input id="cuantasColumnas">
+        <p>Minas</p>
+        <input id="cuantasMinas">
+        <button id="enviarDimesiones">Enviar</button>
+      </nav>
+      <label for="btn-menu">✖️</label>
+    </div>
+  </div>
+  <div id="tablero"></div>
+  <script type="module" defer>
+    import { init } from './js/juego.js';
+    document.addEventListener("DOMContentLoaded", init);
+
+    window.onload = function () {
+      var formData = obtenerCookie("formData");
+      if (formData) {
+        console.log("Los datos del formulario ya están guardados en las cookies.");
+      }
+      else {
+        abrirFormulario();
+      }
+    };
+
+    function obtenerCookie(nombre) {
+      var cookies = document.cookie.split(';');
+      for (var i = 0; i < cookies.length; i++) {
+        var cookie = cookies[i].trim();
+        if (cookie.startsWith(nombre + '=')) {
+          return cookie.substring(nombre.length + 1);
+        }
+      }
+      return null;
+    }
+
+    function abrirFormulario() {
+      var ventanaAncho = 800;
+      var ventanaAlto = 800;
+      var left = (window.innerWidth / 2) - (ventanaAncho / 2);
+      var top = (window.innerHeight / 2) - (ventanaAlto / 2);
+
+      var ventanaEmergente = window.open("http://127.0.0.1:5500/forms.html", "_blank", "width=" + ventanaAncho + ",height=" + ventanaAlto + ",left=" + left + ",top=" + top);
+    }
+    
+  </script>
+</body>
+
+</html>
